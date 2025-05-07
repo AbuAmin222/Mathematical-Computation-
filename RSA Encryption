@@ -25,7 +25,7 @@ Public static int gcd(int a, int b){
      }
      return value;
 }
-public static String RSAEncryption(String text, int p, int q, int begin) {
+public static String RSAEncryption(String text, int e; int p, int q, int begin) {
     if(conditions(p, q, e)){
     String[][] data = new String[count][2];
     for (int i = 0; i < count; i++) {
@@ -50,7 +50,7 @@ public static String RSAEncryption(String text, int p, int q, int begin) {
 
         
         int m = Integer.parseInt(number);
-        int c = (int) (Math.pow(m, p * q) % n); 
+        int c = (int) (Math.pow(m, e) % p * q); 
 
         
         String encodedChar = "";
@@ -72,6 +72,8 @@ public static void main(string args){
     Scanner s = new Scanner(system.in);
     System.out.println("Enter text");
     String text = s.nextLine();
+    System.out.println("Enter n number");
+    String n = s.nextLine();
     System.out.println("Enter p number");
     String p = s.nextLine();
     System.out.println("Enter q number");
@@ -79,5 +81,5 @@ public static void main(string args){
     System.out.println("Enter begin number to begin character number(0,1,2....)");
     String begin = s.nextLine();
 
-    RSAEncryption code = this.RSAEncryption(text, p, q, begin);
+    RSAEncryption code = this.RSAEncryption(text, n, p, q, begin);
 }
