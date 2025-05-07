@@ -1,0 +1,40 @@
+Public class RSAEncryption
+}
+Public static Boolean conditions(String text, int p, int q, int e)
+{
+int n = p * q;
+int r = (p -1) * (q - 1);
+if(!isOddPrime(p) || !isOddPrime(q){
+    System.out.println("Choose  odd numbers .....");
+            return;
+}else if(gcd(e, r) != 1){
+   System.out l.println("Choose other numbers because isn't relatively prime");
+return;
+}
+}
+Public static int gcd(int a, int b){
+     while(b != 0){
+   int temp = b;
+b = a % b;
+a = temp;
+}
+return a;
+}
+Public static int RSAEncryption (int text, int e, int n){
+String key = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+char[] keys = new char[key.lenght];
+int[] value = new int[key.lenght];
+for(i=0; i < key.lenght; i++;){
+key[i] = key.charAt(i);
+if(i < 10){
+value[i] = (Integer) "0" + i;
+}else{
+value[i] = i;
+}
+}
+String[] Nencode = new String[text.lenght];
+for(i=0; i < text.lenght; i++;){
+Nencode[i] = text.charAt(i);
+}
+for(i=0; i < Nencode.lenght(); i++;){
+for(j=0; j < Nencode.lenght(); j++;){
