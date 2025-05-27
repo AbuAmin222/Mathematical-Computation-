@@ -1,0 +1,74 @@
+import java.util.Scanner;
+
+public class BisectionMethod {
+
+    // تعريف الدالة f(x)
+    public static double f(double x) {
+        return x * x * x + 4 * x * x - 10;
+    }
+
+    // خوارزمية التنصيف
+    public static void bisection(double a, double b, double tol, int N) {
+        try {
+            double fa = f(a);
+            double fb = f(b);
+
+            if (fa * fb >= 0) {
+                throw new IllegalArgumentException("f(a) and f(b) must have opposite signs. No root guaranteed in this interval.");
+            }
+
+            double p = 0;
+            for (int i = 1; i <= N; i++) {
+                p = (a + b) / 2;
+                double fp = f(p);
+
+                System.out.printf("Iteration %2d: p = %.10f, f(p) = %.10f\n", i, p, fp);
+
+                if (fp == 0 || (b - a) / 2 < tol) {
+                    System.out.println("\nApproximate root found at p = " + p);
+                    return;
+                }
+
+                if (fa * fp > 0) {
+                    a = p;
+                    fa = fp;
+                } else {
+                    b = p;
+                    fb = fp;
+                }
+            }
+
+            System.out.println("\nMethod stopped after max iterations. Last approximation: p = " + p);
+
+        } catch (IllegalArgumentException e) {
+            System.err.println("Input Error: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Unexpected error occurred: " + e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        try {
+            System.out.print("Enter the left endpoint a: ");
+            double a = input.nextDouble();
+
+            System.out.print("Enter the right endpoint b: ");
+            double b = input.nextDouble();
+
+            System.out.print("Enter the tolerance (e.g., 0.0001): ");
+            double tol = input.nextDouble();
+
+            System.out.print("Enter the maximum number of iterations: ");
+            int N = input.nextInt();
+
+            bisection(a, b, tol, N);
+
+        } catch (Exception e) {
+            System.err.println("Invalid input! Please enter numeric values only.");
+        } finally {
+            input.close();
+        }
+    }
+}
