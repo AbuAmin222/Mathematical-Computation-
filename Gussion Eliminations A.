@@ -1,4 +1,15 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+package Gussion_Eliminations;
+
 import java.util.Scanner;
+
+/**
+ *
+ * @author Abu Amin
+ */
 
 public class gaussianElimination {
 
@@ -65,11 +76,20 @@ public class gaussianElimination {
             int n = input.nextInt();
 
             double[][] matrix = new double[n][n + 1];
+
             System.out.println("Enter augmented matrix (each row with " + (n + 1) + " elements):");
 
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j <= n; j++) {
-                    matrix[i][j] = input.nextDouble();
+                    
+                    System.out.print("Enter value for row " + (i+1) + ", col " + (j+1) + ": ");
+                    String value = scanner.nextLine(); 
+
+                    try {
+                        matrix[i][j] = Double.parseDouble(value); 
+                    } catch (NumberFormatException e) {
+                        throw new IllegalArgumentException("Invalid number: " + value);
+                    }
                 }
             }
 
