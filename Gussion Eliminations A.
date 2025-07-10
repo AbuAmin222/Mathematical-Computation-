@@ -1,1 +1,93 @@
+import java.util.Scanner;
 
+public class gaussianElimination {
+
+    // Method to check if matrix is valid
+    public static void conditions(double[][] matrix) {
+        int n = matrix.length;
+        for (int i = 0; i < n; i++) {
+            if (matrix[i].length != n + 1) {
+                throw new IllegalArgumentException("The matrix isn't valid");
+            }
+        }
+    }
+
+    // Method to apply Gaussian elimination with backward substitution
+    public static double[] gaussianElimination(double[][] matrix) {
+        int n = matrix.length;
+
+        // Forward elimination
+        for (int i = 0; i < n - 1; i++) {
+            int pivot = i;
+            while (pivot < n && matrix[pivot][i] == 0) {
+                pivot++;
+            }
+            if (pivot == n) {
+                throw new IllegalArgumentException("No unique solution exists (zero pivot found)");
+            }
+            if (pivot != i) {
+                double[] temp = matrix[i];
+                matrix[i] = matrix[pivot];
+                matrix[pivot] = temp;
+            }
+
+            for (int j = i + 1; j < n; j++) {
+                double factor = matrix[j][i] / matrix[i][i];
+                for (int k = i; k <= n; k++) {
+                    matrix[j][k] -= factor * matrix[i][k];
+                }
+            }
+        }
+
+        if (matrix[n - 1][n - 1] == 0) {
+            throw new IllegalArgumentException("No unique solution exists (zero pivot in last row)");
+        }
+
+        // Backward substitution
+        double[] x = new double[n];
+        for (int i = n - 1; i >= 0; i--) {
+            double sum = matrix[i][n];
+            for (int j = i + 1; j < n; j++) {
+                sum -= matrix[i][j] * x[j];
+            }
+            x[i] = sum / matrix[i][i];
+        }
+
+        return x;
+    }
+
+    // Main method
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        try {
+            System.out.print("Enter number of (n): ");
+            int n = input.nextInt();
+
+            double[][] matrix = new double[n][n + 1];
+            System.out.println("Enter augmented matrix (each row with " + (n + 1) + " elements):");
+
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j <= n; j++) {
+                    matrix[i][j] = input.nextDouble();
+                }
+            }
+
+            this.conditions(matrix);
+            double[] result = gaussianEliminations(matrix);
+
+            System.out.println("Result's here:");
+            for (int i = 0; i < result.length; i++) {
+                System.out.printf("x%d = %.4f\n", i + 1, result[i]);
+            }
+
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error Occured: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Unexpected Error" + e.getMessage());
+        } finally {
+            System.out.println("Finished");
+        }
+
+    }
+}
